@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { fork } from "child_process"
+import usersRouter from "./users.router.js";
 //import sum from "../utils/sum.util.js";
 
 const indexRouter = Router();
@@ -26,5 +27,6 @@ indexRouter.get("/sum", (req, res) => {
 indexRouter.get("/simplex", (req, res) => {
   return res.status(200).json({ message: "OK " });
 });
+indexRouter.use("/users", usersRouter)
 
 export default indexRouter;
