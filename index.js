@@ -3,6 +3,8 @@ import args from "./src/utils/args.util.js";
 import indexRouter from "./src/routers/index.router.js";
 import dbConnect from "./src/utils/db.util.js";
 import morgan from "morgan";
+import compression from "express-compression";
+import errorHandler from "./src/middlewares/errorHandler.mid.js";
 
 const server = express();
 const port = args.p;
@@ -17,6 +19,10 @@ server.listen(port, ready);
 server.use(express.urlencoded({ extended: true }))
 server.use(express.json())
 server.use(morgan("dev"))
+server.use(compression({
+    brotli: { enabled:true, zlib:{} }
+}));    
 
 // routers
 server.use("/api", indexRouter);
+server.use(errorHandler)
