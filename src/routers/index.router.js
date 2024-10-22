@@ -35,7 +35,14 @@ indexRouter.get("/sumar/:n1/:n2", (req, res, next)=> {
   }
 })
 indexRouter.get("/simplex", (req, res) => {
-  return res.status(200).json({ message: "OK " });
+  return res.status(200).json({ message: "OK" });
+});
+indexRouter.get("/complex", (req, res) => {
+  let total = 1;
+  for (let i = 1; i < 1000000000; i++) {
+    total = i * i;
+  }
+  return res.status(200).json({ total });
 });
 indexRouter.use("/users", usersRouter)
 
