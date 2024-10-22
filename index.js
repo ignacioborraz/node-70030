@@ -5,6 +5,7 @@ import dbConnect from "./src/utils/db.util.js";
 import morgan from "morgan";
 import compression from "express-compression";
 import errorHandler from "./src/middlewares/errorHandler.mid.js";
+import winston from "./src/middlewares/winstonLogger.mid.js";
 
 const server = express();
 const port = args.p;
@@ -18,7 +19,8 @@ server.listen(port, ready);
 // middlewares
 server.use(express.urlencoded({ extended: true }))
 server.use(express.json())
-server.use(morgan("dev"))
+// server.use(morgan("dev"))
+server.use(winston)
 server.use(compression({
     brotli: { enabled:true, zlib:{} }
 }));    
