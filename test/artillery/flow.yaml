@@ -1,0 +1,22 @@
+config:
+  pluggins:
+    metrics-by-endpoint: {}
+  target: http://localhost:8080/api
+  phases:
+    - duration: 20
+      arrivalRate: 20
+scenarios:
+  - name: create, read & destroy one user
+    flow:
+      - log: create one mock
+      - get:
+          url: /users/mocks
+          capture:
+            - json: $.response._id
+              as: uid
+      - log: read one mock
+      - get:
+          url: /users/{{uid}}
+      - log: destroy one mock
+      - delete:
+          url: /users/{{uid}}

@@ -2,6 +2,7 @@ import User from "../dao/user.model.js"
 import { faker } from "@faker-js/faker"
 import CustomError from "../utils/errors/CustomError.util.js"
 import errors from "../utils/errors/errors.js"
+import winstonLogger from "../utils/winston.util.js"
 
 // metodo para la produccion!!!
 const create = async (req, res, next) => {
@@ -61,6 +62,10 @@ const createMocks = async (req, res, next) => {
 const readAll = async (req, res, next) => {
     try {
         const response = await User.find()
+        // cada console.log informativo ahora es necesario
+        // console.log(response);
+        // cambiarlo por winston.info
+        winstonLogge.info(response)
         if (response.length > 0) {
             return res.status(200).json({ message: "USERS READ", response })
         } else {
@@ -71,4 +76,32 @@ const readAll = async (req, res, next) => {
     }
 }
 
-export { create, createMock, createMocks, readAll }
+const read = async (req, res, next) => {
+    try {
+        const { uid } = req.params
+        const response = await User.findOne({ _id: uid })
+        if (response) {
+            return res.status(200).json({ message: "USER READ", response })
+        } else {
+            CustomError.newError(errors.notFound)
+        }
+    } catch (error) {
+        return next(error)
+    }
+}
+
+const destroy = async (req, res, next) => {
+    try {
+        const { uid } = req.params
+        const response = await User.findOneAndDelete({ _id: uid })
+        if (response) {
+            return res.status(200).json({ message: "USER DELETED", response })
+        } else {
+            CustomError.newError(errors.notFound)
+        }
+    } catch (error) {
+        return next(error)
+    }
+}
+
+export { create, createMock, createMocks, readAll, read, destroy }
