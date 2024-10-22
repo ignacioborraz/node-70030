@@ -1,5 +1,6 @@
 import { Router } from "express";
 import { fork } from "child_process"
+import { sumar } from "calculator-70030";
 import usersRouter from "./users.router.js";
 //import sum from "../utils/sum.util.js";
 
@@ -24,6 +25,15 @@ indexRouter.get("/sum", (req, res) => {
     });
   }
 });
+indexRouter.get("/sumar/:n1/:n2", (req, res, next)=> {
+  try {
+    const { n1, n2 } = req.params
+    const total = sumar(n1,n2)
+    return res.status(200).json({ response: total })
+  } catch (error) {
+    return next(error)
+  }
+})
 indexRouter.get("/simplex", (req, res) => {
   return res.status(200).json({ message: "OK " });
 });
