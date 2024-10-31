@@ -65,7 +65,7 @@ const readAll = async (req, res, next) => {
         // cada console.log informativo ahora es necesario
         // console.log(response);
         // cambiarlo por winston.info
-        winstonLogge.info(response)
+        winstonLogger.info(response)
         if (response.length > 0) {
             return res.status(200).json({ message: "USERS READ", response })
         } else {
