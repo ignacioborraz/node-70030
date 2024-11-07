@@ -6,13 +6,15 @@
   "type": "module",
   "scripts": {
     "start": "node ./index.js",
-    "dev": "nodemon ./index.js -p 8080 --mode=dev",
+    "dev": "nodemon ./index.js -p 9000 --mode=dev",
     "test": "node ./index.js -p 9000 --mode=test",
     "tdd": "node ./test/tdd/suma.tdd.js",
-    "simplex": "artillery quick --count 20 --num 100 'http://localhost:8080/api/simplex' -o ./test/artillery/quick/simplex.json",
-    "complex": "artillery quick --count 20 --num 100 'http://localhost:8080/api/complex' -o ./test/artillery/quick/complex.json",
+    "simplex": "artillery quick --count 20 --num 100 'http://localhost:9000/api/simplex' -o ./test/artillery/quick/simplex.json",
+    "complex": "artillery quick --count 20 --num 100 'http://localhost:9000/api/complex' -o ./test/artillery/quick/complex.json",
     "flow": "artillery run ./test/artillery/flow.yaml -o ./test/artillery/flow.json",
-    "report": "artillery report ./test/artillery/flow.json"
+    "report": "artillery report ./test/artillery/flow.json",
+    "image": "docker build -t codercommerce .",
+    "docker": "docker run -p 9000:9000 codercommerce"
   },
   "keywords": [],
   "author": "",
