@@ -1,0 +1,126 @@
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Nombre de la persona a registrar
+        email:
+          type: string
+          description: Email de la persona a registrar
+        pasword:
+          type: string
+          description: Contraseña para el inicio de sesión de un usuario
+        age:
+          type: number
+          description: Edad de la persona a registrar
+        role:
+          type: number
+          description: Rol que habilita ciertos permisos
+        avatar:
+          type: string
+          description: Imagen de la persona a registrar
+      example:
+        name: igna
+        email: igna@coder.com
+        password: hola1234
+        age: 34
+        role: 0
+        avatar: 'https://e7.pngegg.com/pngimages/223/244/png-clipart-computer-icons-avatar-user-profile-avatar-heroes-rectangle.png'
+  responses:
+    res201:
+      type: object
+      properties:
+        response:
+          _id:
+            type: string
+            description: ID generado automaticamente por MONGO
+          name:
+            type: string
+            description: Nombre de la persona a registrar
+          email:
+            type: string
+            description: Email de la persona a registrar
+          pasword:
+            type: string
+            description: Contraseña para el inicio de sesión de un usuario
+          age:
+            type: number
+            description: Edad de la persona a registrar
+          role:
+            type: number
+            description: Rol que habilita ciertos permisos
+          avatar:
+            type: string
+            description: Imagen de la persona a registrar
+          message:
+            type: string
+            description:
+      example:
+        response:
+          _id: 6707e8bfe09f2ba0821987cd
+          name: igna
+          email: igna@coder.com
+          password: hola1234
+          age: 34
+          role: 0
+          avatar: 'https://e7.pngegg.com/pngimages/223/244/png-clipart-computer-icons-avatar-user-profile-avatar-heroes-rectangle.png'
+        message: USER CREATED
+    res201s:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje informativo con la cantidad de usuarios creados
+      example:
+        message: 10 MOCK USERS CREATED
+    res404:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje informativo de que no encontró el recurso solicitado
+        statusCode:
+          type: number
+          description: Numero del codigo de estado de la operación
+      example:
+        message: Not found
+        statusCode: 404
+    res500:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje informativo de que el servidor no está respondiendo
+        statusCode:
+          type: number
+          description: Numero del codigo de estado de la operación
+      example:
+        message: Server Error
+        statusCode: 500
+paths:
+  /api/users:
+    post:
+      summary: Ruta para registrar un usuario
+      tags:
+        - User
+      requestBody:
+       required: true
+       content:
+         application/json:
+           schema:
+             $ref: '#components/schemas/User'
+      responses:
+        '201':
+          descrption: Respuesta de exito en la creación
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res201'
+        '500':
+          description: Respuesta fallida de la creación
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res500'
