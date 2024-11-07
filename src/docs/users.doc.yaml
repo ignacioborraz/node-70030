@@ -29,6 +29,45 @@ components:
         role: 0
         avatar: 'https://e7.pngegg.com/pngimages/223/244/png-clipart-computer-icons-avatar-user-profile-avatar-heroes-rectangle.png'
   responses:
+    res200:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje informativo de la lectura de un usuario
+      example:
+        message: USER READ
+        response:
+          _id: 6707e8bfe09f2ba0821987cd
+          name: igna
+          email: igna@coder.com
+          password: hola1234
+          age: 34
+          role: 0
+          avatar: 'https://e7.pngegg.com/pngimages/223/244/png-clipart-computer-icons-avatar-user-profile-avatar-heroes-rectangle.png'
+    res200s:
+      type: object
+      properties:
+        message:
+          type: string
+          description: Mensaje informativo de la lectura de usuarios
+      example:
+        message: USERS READ
+        response:
+          - _id: 6707e8bfe09f2ba0821987cd
+            name: igna
+            email: igna@coder.com
+            password: hola1234
+            age: 34
+            role: 0
+            avatar: 'https://e7.pngegg.com/pngimages/223/244/png-clipart-computer-icons-avatar-user-profile-avatar-heroes-rectangle.png'
+          - _id: 6707e8bfe09f2ba0821987cd
+            name: igna
+            email: igna@coder.com
+            password: hola1234
+            age: 34
+            role: 0
+            avatar: 'https://e7.pngegg.com/pngimages/223/244/png-clipart-computer-icons-avatar-user-profile-avatar-heroes-rectangle.png'
     res201:
       type: object
       properties:
@@ -120,6 +159,60 @@ paths:
                 $ref: '#components/responses/res201'
         '500':
           description: Respuesta fallida de la creación
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res500'
+    get:
+      summary: Ruta para leer usuarios
+      tags:
+        - User
+      responses:
+        '200':
+          description: Respuesta de exito en la lectura de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res200s'
+        '404':
+          description: Respuesta informativa cuando no encuentra usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res404'
+        '500':
+          description: Respuesta fallida en la lectura de usuarios
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res500'
+  /api/users/{uid}:
+    get:
+      summary: Ruta para leer un usuario
+      tags:
+        - User
+      parameters:
+        - name: uid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: ID del usuario a leer
+      responses:
+        '200':
+          description: Respuesta de exito en la lectura de un usuario con el ID correspondiente
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res200'
+        '404':
+          description: Respuesta informativa cuando no encuentra el usuario con el ID correspondiente
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/res404'
+        '500':
+          description: Respuesta fallida en la lectura de usuarios
           content:
             application/json:
               schema:
