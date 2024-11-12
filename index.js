@@ -3,6 +3,9 @@ import express from "express";
 import compression from "express-compression";
 import cluster from "cluster";
 import { cpus } from "os";
+import swaggerJsdoc from "swagger-jsdoc";
+import { serve, setup } from "swagger-ui-express";
+import opts from "./src/utils/swagger.util.js"
 import args from "./src/utils/args.util.js";
 import indexRouter from "./src/routers/index.router.js";
 import dbConnect from "./src/utils/db.util.js";
@@ -50,6 +53,10 @@ server.use(
     brotli: { enabled: true, zlib: {} },
   })
 );
+
+// documentation
+const specs = swaggerJsdoc(opts)
+server.use("/api/doc", serve, setup(specs))
 
 // routers
 server.use("/api", indexRouter);

@@ -1,0 +1,48 @@
+# version de la API de kubernetes
+apiVersion: apps/v1
+# tipo de recurso que se va a crear
+kind: Deployment
+metadata:
+  # identificador del recurso dentro de la orquesta
+  name: auth
+# especificaciones
+spec:
+  # cantidad de replicas o instancias del contenedor que se desean ejecutar en la orquesta
+  replicas: 5
+  selector:
+    # se seleccionan los pods que tengan la etiqueta para que sean parte de la orquesta
+    matchLabels:
+      app: auth
+  template:
+    metadata:
+      labels:
+        # nombre de los pods que se crearán a partir de este despliegue
+        app: auth
+    spec:
+      # datos de los contenedores
+      containers:
+      - name: auth
+        image: ignacioborraz/auth:1.0.0
+        ports:
+        - containerPort: 8000
+---
+# version de la API de kubernetes
+apiVersion: v1
+# tipo de recurso que se va a crear
+kind: Service
+metadata:
+  # identificador del recurso dentro de la orquesta
+  name: auth-service
+# especificaciones
+spec:
+  selector:
+    # se seleccionan los pods que tengan la etiqueta para que sean parte de la orquesta
+    app: auth
+  ports:
+  - protocol: TCP
+    # puerto que se expondrá a otros servicios o usuarios
+    port: 8000
+    # puerto dentro de los pods (no necesariamente es el mismo)
+    targetPort: 8000
+  # tipo de servicio, en este caso balanceará los pods a medida que se necesiten
+  type: LoadBalancer

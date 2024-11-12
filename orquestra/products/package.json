@@ -7,7 +7,13 @@
   "scripts": {
     "start": "node ./index.js",
     "dev": "nodemon ./index.js",
-    "image": "docker build -t products ."
+    "image": "docker build -t products .",
+    "rename": "docker tag products ignacioborraz/products:1.0.0",
+    "push": "docker push ignacioborraz/products:1.0.0",
+    "mini": "kubectl apply -f ./mini.yaml",
+    "pods": "kubectl get pods",
+    "deployments": "kubectl get deployments",
+    "services": "minikube service list"
   },
   "keywords": [],
   "author": "",
