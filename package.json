@@ -14,13 +14,17 @@
     "flow": "artillery run ./test/artillery/flow.yaml -o ./test/artillery/flow.json",
     "report": "artillery report ./test/artillery/flow.json",
     "image": "docker build -t codercommerce .",
-    "docker": "docker run -p 9000:9000 codercommerce"
+    "docker": "docker run -p 9000:9000 codercommerce",
+    "mocha": "mocha ./test/mocha",
+    "chai": "mocha ./test/chai"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
+    "chai": "^5.1.2",
+    "mocha": "^10.8.2",
     "nodemon": "^3.1.7"
   },
   "dependencies": {
