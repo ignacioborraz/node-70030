@@ -65,7 +65,7 @@ const readAll = async (req, res, next) => {
         // cada console.log informativo ahora es necesario
         // console.log(response);
         // cambiarlo por winston.info
-        winstonLogger.info(response)
+        // winstonLogger.info(response)
         if (response.length > 0) {
             return res.status(200).json({ message: "USERS READ", response })
         } else {
@@ -90,6 +90,21 @@ const read = async (req, res, next) => {
     }
 }
 
+const update = async (req, res, next) => {
+    try {
+        const { uid } = req.params
+        const data = req.body
+        const response = await User.findOneAndUpdate({ _id: uid }, data, { new: true })
+        if (response) {
+            return res.status(200).json({ message: "USER UPDATED", response })
+        } else {
+            CustomError.newError(errors.notFound)
+        }
+    } catch (error) {
+        return next(error)
+    }
+}
+
 const destroy = async (req, res, next) => {
     try {
         const { uid } = req.params
@@ -104,4 +119,4 @@ const destroy = async (req, res, next) => {
     }
 }
 
-export { create, createMock, createMocks, readAll, read, destroy }
+export { create, createMock, createMocks, readAll, read, update, destroy }
