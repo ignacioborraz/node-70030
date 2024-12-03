@@ -13,8 +13,10 @@
     "complex": "artillery quick --count 20 --num 100 'http://localhost:9000/api/complex' -o ./test/artillery/quick/complex.json",
     "flow": "artillery run ./test/artillery/flow.yaml -o ./test/artillery/flow.json",
     "report": "artillery report ./test/artillery/flow.json",
-    "image": "docker build -t codercommerce .",
-    "docker": "docker run -p 9000:9000 codercommerce",
+    "create-image": "docker build -t codercommerce .",
+    "run-image": "docker run -p 9000:9000 codercommerce",
+    "rename-image": "docker tag codercommerce ignacioborraz/codercommerce:1.0.0",
+    "push-image": "docker push ignacioborraz/codercommerce:1.0.0",
     "mocha": "mocha ./test/mocha",
     "chai": "mocha ./test/chai",
     "supertest": "mocha ./test/supertest"

@@ -1,0 +1,32 @@
+{
+  "name": "final",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node ./index.js",
+    "dev": "nodemon ./index.js",
+    "test": "mocha ./test",
+    "image": "docker build -t products70030 .",
+    "rename": "docker tag products70030 ignacioborraz/products70030:1.0.0",
+    "push": "docker push ignacioborraz/products70030:1.0.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "type": "module",
+  "dependencies": {
+    "dotenv": "^16.4.6",
+    "express": "^4.21.1",
+    "mongoose": "^8.8.3",
+    "morgan": "^1.10.0",
+    "nodemon": "^3.1.7",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^5.0.1"
+  },
+  "devDependencies": {
+    "chai": "^5.1.2",
+    "mocha": "^11.0.1",
+    "supertest": "^7.0.0"
+  }
+}

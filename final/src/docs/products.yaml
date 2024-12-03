@@ -1,0 +1,65 @@
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        titulo:
+          type: string
+          required: true
+        descripcion:
+          type: string
+        imagen:
+          type: string
+          default: https://s1.significados.com/foto/producto-og.jpg
+        stock:
+          type: number
+          default: 1
+        price:
+          type: number
+          default: 1
+  responses:
+    success:
+      type: object
+      properties:
+        response:
+          type: object
+        message:
+          type: string
+paths:
+  /api/products:
+    post:
+      summary: Ruta para crear un producto
+      tags:
+        - Product
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#components/schemas/Product'
+      responses:
+        201:
+          description: Respuesta de exito de la creación de un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/success'
+  /api/products/{pid}:
+    get:
+      summary: Ruta para leer un producto
+      tags:
+        - Product
+      parameters:
+        - name: pid
+          in: path
+          required: true
+          schema:
+            type: string
+          description: Identificador del producto
+      responses:
+        200:
+          description: Respuesta de exito de la lectua de un producto
+          content:
+            application/json:
+              schema:
+                $ref: '#components/responses/success'
